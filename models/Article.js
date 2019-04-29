@@ -37,10 +37,10 @@ var ArticleSchema = new Schema({
     mongoose.model('ModelName', mySchema)
 */
 // This creates our model from the above schema, using mongoose's model method
-var Article = mongoose.model("Article", ArticleSchema);
+var ArticleModel = mongoose.model("ArticleModel", ArticleSchema);
 
 // Export the Article model
-module.exports = Article;
+module.exports = ArticleModel;
 
 /* Documentation: A model is a class with which we construct documents. 
 In this case, each document will be [ an Article ] with properties and behaviors as declared in our schema. 

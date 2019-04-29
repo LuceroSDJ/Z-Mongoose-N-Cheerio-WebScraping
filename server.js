@@ -1,6 +1,6 @@
 // require dependencies
 var express = require("express");
-var logger = require("morgan");
+// var logger = require("morgan");
 var exphbs  = require('express-handlebars');
 const mongoose = require('mongoose');
 
@@ -32,7 +32,7 @@ var PORT = process.env.PORT || 3000;
 
 // Configure middleware
 // Use morgan logger for logging requests
-app.use(logger("dev"));
+// app.use(logger("dev"));
 //Set up the Express app to handle data parsing
 // Parse request body as JSON
 app.use(express.urlencoded({ extended: true }));
@@ -54,9 +54,9 @@ Both connect and createConnection take a mongodb:// URI, or the parameters host,
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
 mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
+  useNewUrlParser: true
   // debug cli mssg: [(node:1336) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.]
-  useCreateIndex: true
+//   useCreateIndex: true
 });
 
 // Register `hbs.engine` with the Express app
@@ -92,15 +92,60 @@ app.get("/scrape", function(req, res) {
             result.link = $(this)
                 .children().find("h2 a")
                 .attr("href");
-            result.summary = $(this)
+            result.published = $(this)
                 .children()
                 .find("p time")
                 .text()
                 .trim();
             console.log(result);
-        })
+
+            // Create a new Article using the `result` object built from scraping
+            db.Article.create(result)
+            .then(function(dbArticles) {
+                // View the added result in the console
+                console.log(dbArticles);
+            })
+            .catch(function(err) {
+                // If an error occurred, log it
+                console.log(err);
+            });
+        }); //grabbing html tags with cheerio ends
+
+        // Send a message to the client
+        res.send("Scrape Complete");
+    }); //axios ends
+});  //scrape route ends
+
+// Route for getting all Articles from the db
+app.get("/articles", function(req, res) {
+    // Grab every document in the Articles collection
+    db.Article.find({})
+      .then(function(dbArticles) {
+        // If we were able to successfully find Articles, send them back to the client
+        res.json(dbArticles);
+      })
+      .catch(function(err) {
+        // If an error occurred, send it to the client
+        res.json(err);
+      });
+});
+
+// Route for deleting all articles
+app.get("/deleteall", function(req, res) {
+    db.Article.deleteMany({})
+    .then(function(dbArticles) {
+        res.json(dbArticles);
+    })
+    .catch(function(err) {
+        // If an error occurred, send it to the client
+        res.json(err);
+        // console.log(err);
     });
 });
+
+
+            
+
 
 app.listen(process.env.PORT || 3000, function() {
     console.log("App listening on PORT: " + PORT);  //app listening ✓

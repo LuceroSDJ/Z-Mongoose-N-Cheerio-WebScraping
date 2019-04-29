@@ -112,7 +112,7 @@ app.get("/scrape", function(req, res) {
         }); //grabbing html tags with cheerio ends
 
         // Send a message to the client
-        res.send("Scrape Complete");
+        // res.send("Scrape Complete");
     }); //axios ends
 });  //scrape route ends
 

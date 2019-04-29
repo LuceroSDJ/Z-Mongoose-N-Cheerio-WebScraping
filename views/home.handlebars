@@ -14,7 +14,7 @@
                 <div class="navbar-nav ml-auto"> <!-- this line of code aligns the text to the right! Amazing!-->
                     <!-- text-dark changes text color-->
                     <a id="preventDefault" class="nav-item nav-link p-3" href="/">Home</a>
-                    <a class="nav-item nav-link p-3" href="/saved">Saved Tutotials</a>
+                    <a id="getArticles" class="nav-item nav-link p-3" href="/saved">Articles</a>
                     <a class="nav-item nav-link p-3 scrapeNewTutorials" href="#">Scrape New Tutorials(if any)</a>
                 </div>
             </div>
@@ -24,7 +24,7 @@
 
 {{!-- scraped data goes here --}}
 <div class="container">
-    <div>
+    <div id="articlesDiv">
         <h1>Scraped Data</h1>
     </div>
     <div>Scraped Data Goes Here!</div>

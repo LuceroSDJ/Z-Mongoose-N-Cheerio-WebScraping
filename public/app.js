@@ -34,10 +34,10 @@ var articlesDiv = $("#articlesDiv");
                 "<div class='modal-body'>" +
                     "..." +
                 "</div>" +
-                "<div class='modal-footer'>" +
-                    "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>" +
-                    "<button data-id='" + data._id + "' id='savenote' type='button' class='btn btn-primary'>Save Note</button>" +
-                "</div>" +
+                // "<div class='modal-footer'>" +
+                //     "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>" +
+                //     "<button data-id='" + data[i]._id + "' id='savenote' type='button' class='btn btn-primary'>Save Note</button>" +
+                // "</div>" +
                 "</div>" +
             "</div>" +
             "</div>" +
@@ -76,7 +76,7 @@ $(document).on("click", "#addNote", function() {
                 "<div class='input-group-prepend'>" +
                     "<span class='input-group-text' id='inputGroup-sizing-sm'>Title</span>" +
                 "</div>" +
-                "<input type='text' class='form-control' aria-label='Small' aria-describedby='inputGroup-sizing-sm'>" +
+                "<input id='titleinput' type='text' class='form-control' aria-label='Small' aria-describedby='inputGroup-sizing-sm'>" +
             "</div>" 
         );
         // A textarea to add a new note body
@@ -87,11 +87,11 @@ $(document).on("click", "#addNote", function() {
                 "<div class='input-group-prepend'>" +
                     "<span class='input-group-text' id='inputGroup-sizing-sm'>Note</span>" +
                 "</div>" +
-                "<input type='text' class='form-control' aria-label='Small' aria-describedby='inputGroup-sizing-sm'>" +
+                "<input id='bodyinput' type='text' class='form-control' aria-label='Small' aria-describedby='inputGroup-sizing-sm'>" +
             "</div>" 
         );
         // A button to submit a new note, with the id of the article saved to it
-        // $(".modal-body").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+        $(".modal-body").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
   
         // If there's a note in the article
         if (data.note) {
@@ -101,5 +101,34 @@ $(document).on("click", "#addNote", function() {
             $("#bodyinput").val(data.note.body);
         }
     });
+});
 
+// When you click the savenote button
+$(document).on("click", "#savenote", function() {
+    // Grab the id associated with the article from the submit button
+    var thisId = $(this).attr("data-id");
+    console.log(thisId);
+  
+    // Run a POST request to change the note, using what's entered in the inputs
+    $.ajax({
+        method: "POST",
+        url: "/articles/" + thisId,
+        data: {
+            // Value taken from title input
+            title: $("#titleinput").val(),
+            // Value taken from note textarea
+            body: $("#bodyinput").val()
+        }
+    })
+    // With that done
+    .then(function(data) {
+        // Log the response
+        console.log(data);
+        // // Empty the notes section
+        // $("#notes").empty();
+    });
+  
+    // Also, remove the values entered in the input and textarea for note entry
+    $("#titleinput").val("");
+    $("#bodyinput").val("");
 });

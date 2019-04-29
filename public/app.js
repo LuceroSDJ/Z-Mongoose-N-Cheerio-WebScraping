@@ -88,6 +88,7 @@ $(document).on("click", "#addNote", function() {
         // A textarea to add a new note body
         // $(".modal-body").append("<textarea id='bodyinput' name='body'></textarea>");
         $(".modal-body").append(
+            "<div id='storeNoteDiv'>stored note</div>" +
             //Bostrap input field with label for note body
             "<div class='input-group input-group-sm mb-3'>" +
                 "<div class='input-group-prepend'>" +
@@ -149,8 +150,8 @@ $(document).on("click", "#saveArticle", function() {
 }); //click event ends
 
 //function: if data-saved is true send the article to the saved div in saved handlebars
-function saved() {
-    if(thisSaved) {
+// function saved() {
+//     if(thisSaved) {
         
-    }
-}
+//     }
+// }

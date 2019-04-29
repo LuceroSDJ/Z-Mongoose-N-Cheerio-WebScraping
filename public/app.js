@@ -8,6 +8,8 @@ var articlesDiv = $("#articlesDiv");
     $.getJSON("/articles", function(data) {
         // For each one
         for (var i = 0; i < data.length; i++) {
+            var booleanSaved = data[i].saved;
+            booleanSaved = false;
             // Display the information on the page
             // articlesDiv.append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
             // articlesDiv.append("<div id='articleBox'  data-saved='false' data-id='" + data[i]._id + "'>" + 
@@ -16,6 +18,9 @@ var articlesDiv = $("#articlesDiv");
             "<a href=" + data[i].link + ">" + data[i].link + "</a>" + "<br />" +
             "<p>" + data[i].published + "</p>" +
             // ========== test boostrap modal =========
+            //Save Article Button
+            "<button data-id='" + data[i]._id + "' data-saved='" + booleanSaved + "' id='saveArticle'>Save Article</button>" +
+            //====================modal code starts========================================
             // <!-- Button trigger modal -->
             "<button id='addNote' data-id='" + data[i]._id + "' type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModalCenter'>" +
                 "Add Note" +
@@ -41,6 +46,7 @@ var articlesDiv = $("#articlesDiv");
                 "</div>" +
             "</div>" +
             "</div>" +
+            // ====================modal ends =========================
             // // "<button id='addNote'  data-id='" + data[i]._id + "'> href='/articles/:id'>Save</button>" +
             // "<button id='addNote'  data-id='" + data[i]._id + "'>Save</button>" +
             // "</div>" +
@@ -50,7 +56,7 @@ var articlesDiv = $("#articlesDiv");
 // });
 // var articleBox = $("#articleBox");
 
-// Whenever someone clicks an articlesDiv display a modal for the user to add a note for the clicked article
+// Whenever someone clicks an articlesDiv/#addNote display a modal for the user to add a note for the clicked article
 $(document).on("click", "#addNote", function() {
     // Empty the notes from the note section
     $(".modal-body").empty();
@@ -132,3 +138,19 @@ $(document).on("click", "#savenote", function() {
     $("#titleinput").val("");
     $("#bodyinput").val("");
 });
+
+// on #saveArticle click event, set data-saved to true
+$(document).on("click", "#saveArticle", function() {
+    var thisSaved = $(this).attr("data-saved");
+    console.log(thisSaved);
+    thisSaved = true;
+    console.log(thisSaved);
+
+}); //click event ends
+
+//function: if data-saved is true send the article to the saved div in saved handlebars
+function saved() {
+    if(thisSaved) {
+        
+    }
+}

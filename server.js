@@ -112,7 +112,7 @@ app.get("/scrape", function(req, res) {
         }); //grabbing html tags with cheerio ends
 
         // Send a message to the client
-        // res.send("Scrape Complete");
+        res.render("home");
     }); //axios ends
 });  //scrape route ends
 
@@ -131,10 +131,11 @@ app.get("/articles", function(req, res) {
 });
 
 // Route for deleting all articles
-app.get("/deleteall", function(req, res) {
+app.get("/deleteAll", function(req, res) {
     db.Article.deleteMany({})
     .then(function(dbArticles) {
-        res.json(dbArticles);
+        // res.json(dbArticles);
+        res.render("home");
     })
     .catch(function(err) {
         // If an error occurred, send it to the client

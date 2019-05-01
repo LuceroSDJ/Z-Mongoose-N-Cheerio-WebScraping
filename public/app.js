@@ -5,7 +5,7 @@ var articlesDiv = $("#articlesDiv");
 // scrape website on click
 // $(document).on("click", scrapeWeb, function() {
     // Grab the articles as a json
-    $.getJSON("/articles", function(data) {
+    $.getJSON("/api/articles", function(data) {
         // For each one
         for (var i = 0; i < data.length; i++) {
             var booleanSaved = data[i].saved;
@@ -18,8 +18,8 @@ var articlesDiv = $("#articlesDiv");
             "<a href=" + data[i].link + ">" + data[i].link + "</a>" + "<br />" +
             "<p>" + data[i].published + "</p>" +
             // ========== test boostrap modal =========
-            //Save Article Button
-            "<button data-id='" + data[i]._id + "' data-saved='" + booleanSaved + "' id='saveArticle'>Save Article</button>" +
+            //Save Article Button Test
+            // "<button data-id='" + data[i]._id + "' data-saved='" + booleanSaved + "' id='saveArticle'>Save Article</button>" +
             //====================modal code starts========================================
             // <!-- Button trigger modal -->
             "<button id='addNote' data-id='" + data[i]._id + "' type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModalCenter'>" +

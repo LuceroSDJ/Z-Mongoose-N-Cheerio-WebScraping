@@ -5,7 +5,7 @@ var exphbs  = require('express-handlebars');
 const mongoose = require('mongoose');
 
 // initialize express
-var app = express();
+var app = express(); //allows us to add routes & start our server
 // require routes from routes.js in order to render handlebars files 
 /* ======= Documentation: ==========
 Routing refers to how an application’s endpoints (URIs) respond to client requests.
@@ -30,7 +30,7 @@ var db = require("./models");
 var PORT = process.env.PORT || 3000;
 
 
-// Configure middleware
+// ==================== Configure middleware =====================================================
 // Use morgan logger for logging requests
 // app.use(logger("dev"));
 //Set up the Express app to handle data parsing
@@ -41,6 +41,8 @@ app.use(express.json());
 // create publi static folder
 app.use(express.static(__dirname + "/public"));
 
+
+// =================== CREATE  A LOCATION FOR MONGO DATABASE & STABLISH CONNECTION TO IT =========
 /* Documentation: Connecting to MongoDB
 First, we need to define a connection. 
 If your app uses only one database, you should use mongoose.connect. 
@@ -50,9 +52,9 @@ Both connect and createConnection take a mongodb:// URI, or the parameters host,
 // Connect to the Mongo DB 
 // mongoose.connect('mongodb://localhost/my_database', {useNewUrlParser: true});
 
-// If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
+// If deployed, use the deployed database. Otherwise use the local mongoHeadlines database, which is the name of my mongo database
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-
+//mongo.connect opens up our mongodb local instance
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true
   // debug cli mssg: [(node:1336) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.]
@@ -64,7 +66,8 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 // documentation: create views/layouts/main.handlebars
 
-// ============= ROUTES ===========================
+
+// ====================== ROUTES ================================================================
 
 // What it the server.js file doing?
 console.log("\n********************\n" +
@@ -117,7 +120,7 @@ app.get("/scrape", function(req, res) {
 });  //scrape route ends
 
 // Route for getting all Articles from the db
-app.get("/articles", function(req, res) {
+app.get("/api/articles", function(req, res) {
     // Grab every document in the Articles collection
     db.Article.find({})
       .then(function(dbArticles) {
@@ -183,7 +186,7 @@ app.post("/articles/:id", function(req, res) {
 
             
 
-
+//start server & let me know that the server has been started by console.logging the port 
 app.listen(process.env.PORT || 3000, function() {
     console.log("App listening on PORT: " + PORT);  //app listening ✓
 })

@@ -48,9 +48,9 @@ This app main goal is to scrape a website and extract specific data from the pag
 ![dataDeletedFromMongoDB](https://user-images.githubusercontent.com/44692872/57043019-f5846980-6c2b-11e9-96d3-0166d37e8d91.png)
 
 5. When user clicks on `Add Note`, a modal is displayed with the associated music video title in it for the user to add a comment about the video. 
-```
-    This is not working as exprected & needs to be revised in the future to deliver a fully functioning app. This is what I was able to achieve to associate the note to the clicked music video.
-```
+
+### This is not working as exprected & needs to be revised in the future to deliver a fully functioning app. This is what I was able to achieve to associate the note to the clicked music video.
+
 ![noteModal](https://user-images.githubusercontent.com/44692872/57043219-9541f780-6c2c-11e9-8846-71b5e7fe3e8b.png)
 
 

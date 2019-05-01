@@ -39,7 +39,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // create publi static folder
-app.use(express.static(__dirname + "/public"));
+app.use(express.static("public"));
+
 
 
 // =================== CREATE  A LOCATION FOR MONGO DATABASE & STABLISH CONNECTION TO IT =========
@@ -56,7 +57,8 @@ Both connect and createConnection take a mongodb:// URI, or the parameters host,
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 //mongo.connect opens up our mongodb local instance
 mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useFindAndModify: false
   // debug cli mssg: [(node:1336) DeprecationWarning: collection.ensureIndex is deprecated. Use createIndexes instead.]
 //   useCreateIndex: true
 });
@@ -133,6 +135,20 @@ app.get("/api/articles", function(req, res) {
       });
 });
 
+// Route for getting all notes from the db
+app.get("/api/notes", function(req, res) {
+    // Grab every document in the Articles collection
+    db.Note.find({})
+      .then(function(dbNotes) {
+        // If we were able to successfully find Articles, send them back to the client
+        res.json(dbNotes);
+      })
+      .catch(function(err) {
+        // If an error occurred, send it to the client
+        res.json(err);
+      });
+});
+
 // Route for deleting all articles
 app.get("/deleteAll", function(req, res) {
     db.Article.deleteMany({})
@@ -183,8 +199,15 @@ app.post("/articles/:id", function(req, res) {
     });
 });
 
-
-            
+// Route for deleting an article
+app.put("/articles/:id", function(req, res) {
+    db.Article.deleteOne({ _id: req.params.id })
+    .then(function(dbArticles) {
+        res.json(dbArticles);
+    }).catch(function(err) {console.log(err);
+        res.json(err);
+    });
+});
 
 //start server & let me know that the server has been started by console.logging the port 
 app.listen(process.env.PORT || 3000, function() {

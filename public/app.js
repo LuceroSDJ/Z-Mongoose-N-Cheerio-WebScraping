@@ -13,8 +13,8 @@ var articlesDiv = $("#articlesDiv");
             // Display the information on the page
             // articlesDiv.append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
             // articlesDiv.append("<div id='articleBox'  data-saved='false' data-id='" + data[i]._id + "'>" + 
-            articlesDiv.append("<div id='articleBox'" + 
-            "<h2>" + data[i].title + "</h2><br />" + 
+            articlesDiv.append("<div id='articleBox'>" + 
+            "<h3>" + data[i].title + "</h3><br />" + 
             "<a href=" + data[i].link + ">" + data[i].link + "</a>" + "<br />" +
             "<p>" + data[i].published + "</p>" +
             // ========== test boostrap modal =========
@@ -54,7 +54,16 @@ var articlesDiv = $("#articlesDiv");
         }
     });
 // });
-// var articleBox = $("#articleBox");
+
+// Grab the notes as a json (test)
+// $.getJSON("/api/notes", function(data) {
+//     // For each one
+//     for (var i = 0; i < data.length; i++) {
+
+
+
+//     }
+// });  //api/notes ends
 
 // Whenever someone clicks an articlesDiv/#addNote display a modal for the user to add a note for the clicked article
 $(document).on("click", "#addNote", function() {
@@ -69,7 +78,7 @@ $(document).on("click", "#addNote", function() {
         method: "GET",
         url: "/articles/" + thisId
     })
-    // With that done, add the note information to the page
+    // With that done, add the note information to the modal
     .then(function(data) {
         console.log(data);
         // The title of the article
@@ -77,6 +86,11 @@ $(document).on("click", "#addNote", function() {
         // An input to enter a new title
         // $(".modal-body").append("<input id='titleinput' name='title' >");
         $(".modal-body").append(
+            // empty div to display the added note/s
+            "<div" +
+                "<h3 id='storedNoteTitle'></h3>" +
+                "<p id='storedNoteBody'></p>" +
+                "</div>" +
             //Bostrap input field with label for title
             "<div class='input-group input-group-sm mb-3'>" +
                 "<div class='input-group-prepend'>" +
@@ -88,7 +102,6 @@ $(document).on("click", "#addNote", function() {
         // A textarea to add a new note body
         // $(".modal-body").append("<textarea id='bodyinput' name='body'></textarea>");
         $(".modal-body").append(
-            "<div id='storeNoteDiv'>stored note</div>" +
             //Bostrap input field with label for note body
             "<div class='input-group input-group-sm mb-3'>" +
                 "<div class='input-group-prepend'>" +
@@ -103,10 +116,11 @@ $(document).on("click", "#addNote", function() {
         // If there's a note in the article
         if (data.note) {
             // Place the title of the note in the title input
-            $("#titleinput").val(data.note.title);
+            $("#storedNoteTitle").val(data.note.title);
             // Place the body of the note in the body textarea
-            $("#bodyinput").val(data.note.body);
+            $("#storedNoteBody").val(data.note.body);
         }
+        console.log(data._id);
     });
 });
 
@@ -132,12 +146,19 @@ $(document).on("click", "#savenote", function() {
         // Log the response
         console.log(data);
         // // Empty the notes section
-        // $("#notes").empty();
+        $("#notes").empty();
+        if (data.note) {
+            // Place the title of the note in the title input
+            $("#storedNoteTitle").val(data.note.title);
+            // Place the body of the note in the body textarea
+            $("#storedNoteBody").val(data.note.body);
+        }
     });
   
     // Also, remove the values entered in the input and textarea for note entry
     $("#titleinput").val("");
     $("#bodyinput").val("");
+    // If there's a note in the article
 });
 
 // on #saveArticle click event, set data-saved to true

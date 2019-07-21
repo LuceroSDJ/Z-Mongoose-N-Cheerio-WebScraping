@@ -16,41 +16,42 @@ var articlesDiv = $("#articlesDiv");
             articlesDiv.append("<div id='articleBox'>" + 
             "<h3>" + data[i].title + "</h3><br />" + 
             "<a href=" + data[i].link + ">" + data[i].link + "</a>" + "<br />" +
-            "<p>" + data[i].published + "</p>" +
+            "<p>" + data[i].published + "</p>");
+            // +
             // ========== test boostrap modal =========
             //Save Article Button Test
             // "<button data-id='" + data[i]._id + "' data-saved='" + booleanSaved + "' id='saveArticle'>Save Article</button>" +
             //====================modal code starts========================================
             // <!-- Button trigger modal -->
-            "<button id='addNote' data-id='" + data[i]._id + "' type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModalCenter'>" +
-                "Add Note" +
-            "</button>" +
+            // "<button id='addNote' data-id='" + data[i]._id + "' type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModalCenter'>" +
+            //     "Add Note" +
+            // "</button>" +
 
             // <!-- Modal -->
-            "<div class='modal fade' id='exampleModalCenter' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>" +
-            "<div class='modal-dialog modal-dialog-centered' role='document'>" +
-                "<div class='modal-content'>" +
-                "<div class='modal-header'>" +
-                    "<h5 class='modal-title' id='exampleModalLongTitle'>Modal title</h5>" +
-                    "<button type='button' class='close' data-dismiss='modal' aria-label='Close'>" +
-                    "<span aria-hidden='true'>&times;</span>" +
-                    "</button>" +
-                "</div>" +
-                "<div class='modal-body'>" +
-                    "..." +
-                "</div>" +
+            // "<div class='modal fade' id='exampleModalCenter' tabindex='-1' role='dialog' aria-labelledby='exampleModalCenterTitle' aria-hidden='true'>" +
+            // "<div class='modal-dialog modal-dialog-centered' role='document'>" +
+            //     "<div class='modal-content'>" +
+            //     "<div class='modal-header'>" +
+            //         "<h5 class='modal-title' id='exampleModalLongTitle'>Modal title</h5>" +
+            //         "<button type='button' class='close' data-dismiss='modal' aria-label='Close'>" +
+            //         "<span aria-hidden='true'>&times;</span>" +
+            //         "</button>" +
+            //     "</div>" +
+            //     "<div class='modal-body'>" +
+            //         "..." +
+            //     "</div>" +
                 // "<div class='modal-footer'>" +
                 //     "<button type='button' class='btn btn-secondary' data-dismiss='modal'>Close</button>" +
                 //     "<button data-id='" + data[i]._id + "' id='savenote' type='button' class='btn btn-primary'>Save Note</button>" +
                 // "</div>" +
-                "</div>" +
-            "</div>" +
-            "</div>" +
+            //     "</div>" +
+            // "</div>" +
+            // "</div>" +
             // ====================modal ends =========================
             // // "<button id='addNote'  data-id='" + data[i]._id + "'> href='/articles/:id'>Save</button>" +
             // "<button id='addNote'  data-id='" + data[i]._id + "'>Save</button>" +
             // "</div>" +
-            "<br /><br />");
+            // "<br /><br />");
         }
     });
 // });
